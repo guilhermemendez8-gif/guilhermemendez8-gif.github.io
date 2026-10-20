@@ -71,15 +71,6 @@
   <!-- Toast Notification Container -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
-  <!-- Status Bar de Conexão Firebase / Modo Demo -->
-  <div id="connection-banner" class="bg-brand-olive text-white text-[11px] py-1.5 px-4 text-center tracking-wide font-medium flex items-center justify-center gap-2">
-    <span id="conn-status-indicator" class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-    <span id="conn-status-text">Conectado ao Firebase Firestore (Tempo Real Ativo)</span>
-    <button onclick="openFirebaseConfigModal()" class="ml-2 underline font-bold hover:text-brand-rose text-[10px] uppercase">
-      Configurar Chaves
-    </button>
-  </div>
-
   <!-- Header / Navigation -->
   <nav class="sticky top-0 z-40 bg-brand-ivory/95 backdrop-blur-md border-b border-brand-rose/40 transition-all duration-300">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 sm:h-20">
@@ -96,8 +87,13 @@
         <a href="#rsvp" class="bg-brand-terracotta hover:bg-[#b57361] text-white px-4 py-2 rounded-full font-semibold transition-transform active:scale-95 shadow-sm">Confirmar Presença</a>
       </div>
 
-      <!-- Quick Action / Admin toggle -->
-      <div class="flex items-center gap-2">
+      <!-- Quick Action / Status & Admin toggle -->
+      <div class="flex items-center gap-3">
+        <!-- Indicador discreto de status do Firebase -->
+        <div class="flex items-center" id="firebase-dot-wrapper" title="A verificar ligação ao Firebase...">
+          <span id="firebase-status-dot" class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 transition-colors duration-300"></span>
+        </div>
+
         <button onclick="handleAdminButtonClick()" title="Painel dos Noivos" class="flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold text-brand-terracotta bg-brand-rose/30 hover:bg-brand-rose/60 border border-brand-rose px-3 py-1.5 rounded-full transition-all">
           <i class="fa-solid fa-crown text-amber-600"></i>
           <span class="hidden sm:inline">Área dos Noivos</span>
@@ -139,7 +135,7 @@
       </h1>
 
       <p class="text-sm sm:text-base font-light tracking-widest uppercase text-brand-charcoal/80 mb-8" id="hero-display-date">
-        18 de Outubro de 2026 • Vale dos Vinhedos, RS
+        18 de Outubro de 2026 • Bento Gonçalves, RS
       </p>
 
       <!-- Contador Regressivo em Tempo Real -->
@@ -199,7 +195,7 @@
           <div class="bg-white p-6 rounded-2xl border border-brand-rose/40 shadow-sm">
             <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal mb-2">O Primeiro Olhar</h3>
             <p class="text-sm leading-relaxed text-brand-charcoal/80">
-              Nos conhecemos por acaso em uma livraria em Porto Alegre numa tarde chuvosa de outono. Uma conversa sobre cafés e autores preferidos virou um jantar de quatro horas. A partir desse dia, soubemos que não era um encontro comum.
+              Nos conhecemos por acaso em uma tarde agradável. Uma conversa que começou despretensiosa virou um jantar de quatro horas. A partir desse dia, soubemos que estávamos diante de algo especial.
             </p>
           </div>
         </div>
@@ -212,7 +208,7 @@
           <div class="bg-white p-6 rounded-2xl border border-brand-rose/40 shadow-sm">
             <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal mb-2">Primeiro Lar & Nova Rotina</h3>
             <p class="text-sm leading-relaxed text-brand-charcoal/80">
-              Decidimos juntar as escovas de dentes e adotar nosso primeiro gatinho, o Pipoca. Entre caixas de mudança, plantas na varanda e receitas testadas a dois, nosso cantinho virou o refúgio preferido do mundo.
+              Decidimos morar juntos e construir a nossa própria rotina. Entre mobílias, novos hábitos e planos compartilhados, a nossa casa tornou-se o refúgio perfeito.
             </p>
           </div>
         </div>
@@ -223,9 +219,9 @@
             Set 2025
           </span>
           <div class="bg-white p-6 rounded-2xl border border-brand-rose/40 shadow-sm">
-            <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal mb-2">O Pedido Simplesmente Mágico</h3>
+            <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal mb-2">O Pedido Especial</h3>
             <p class="text-sm leading-relaxed text-brand-charcoal/80">
-              Em uma viagem aos vinhedos, sob o pôr do sol dourado e com uma taça de espumante nas mãos, o Guilherme se ajoelhou com as mãos trêmulas e o coração transbordando. A resposta foi um 'SIM!' emocionado e imediato.
+              Com o coração repleto de planos e certezas, fizemos a promessa de trilhar toda a vida juntos. A resposta foi um 'SIM!' emocionado para o nosso casamento.
             </p>
           </div>
         </div>
@@ -262,8 +258,8 @@
             <div class="flex items-start gap-3">
               <i class="fa-solid fa-map-pin text-brand-terracotta mt-1"></i>
               <div>
-                <strong>Local:</strong> Capela dos Vinhedos (Villa Bellinzona)
-                <span class="block text-xs text-brand-charcoal/60" id="card-address-cerimonia">Estrada dos Plátanos, Km 14 - Bento Gonçalves, RS</span>
+                <strong>Local:</strong> Villa Bellinzona
+                <span class="block text-xs text-brand-charcoal/60" id="card-address-cerimonia">Bento Gonçalves, RS</span>
               </div>
             </div>
           </div>
@@ -296,14 +292,14 @@
               <i class="fa-regular fa-clock text-brand-terracotta mt-1"></i>
               <div>
                 <strong>Horário:</strong> A partir das 18:00
-                <span class="block text-xs text-brand-charcoal/60">Coquetel de boas-vindas seguido de jantar e pista animada</span>
+                <span class="block text-xs text-brand-charcoal/60">Coquetel de receção seguido de jantar e festa animada</span>
               </div>
             </div>
             <div class="flex items-start gap-3">
               <i class="fa-solid fa-map-pin text-brand-terracotta mt-1"></i>
               <div>
                 <strong>Local:</strong> Salão Cristal & Bosque
-                <span class="block text-xs text-brand-charcoal/60">No mesmo complexo da cerimônia (estacionamento com manobrista gratuito)</span>
+                <span class="block text-xs text-brand-charcoal/60">No mesmo complexo da cerimônia (estacionamento gratuito)</span>
               </div>
             </div>
           </div>
@@ -317,16 +313,16 @@
       </div>
     </div>
 
-    <!-- Dress Code & Traje Recomendado -->
+    <!-- Dress Code -->
     <div class="bg-white rounded-3xl p-8 border border-brand-rose/40 shadow-sm mb-16">
       <div class="max-w-2xl mx-auto text-center">
         <span class="text-xs font-bold tracking-widest uppercase text-brand-terracotta">Como se vestir</span>
         <h3 class="font-cormorant text-3xl font-semibold text-brand-charcoal mt-1 mb-3">Traje: Passeio Completo / Festivo Elegante</h3>
         <p class="text-sm text-brand-charcoal/80 mb-6">
-          Sugerimos ternos elegantes para os homens e vestidos midi ou longos para as mulheres. Por termos momentos ao ar livre em gramado plano, recomendamos saltos mais grossos ou bloco para maior conforto ao caminhar e dançar!
+          Sugerimos fatos/ternos elegantes e vestidos midi ou compridos. Como teremos áreas ao ar livre em relva plana, sugerimos sapatos com salto confortável (bloco) para poder dançar sem preocupações!
         </p>
 
-        <p class="text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70 mb-3">Paleta de Cores Inspiradora (Evitar Branco e Off-White):</p>
+        <p class="text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70 mb-3">Paleta de Inspiração (Por favor, evite branco e tons off-white):</p>
         <div class="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
           <div class="flex flex-col items-center">
             <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #C88572;"></div>
@@ -351,45 +347,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Dicas & FAQ dos Convidados -->
-    <div class="bg-brand-cream/50 rounded-3xl p-8 border border-brand-rose/40">
-      <div class="text-center mb-8">
-        <h3 class="font-cormorant text-2xl font-semibold text-brand-charcoal">Perguntas Frequentes & Dicas Úteis</h3>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-        <div class="bg-white p-5 rounded-2xl border border-brand-rose/30">
-          <div class="flex items-center gap-2 font-semibold text-brand-charcoal mb-2">
-            <i class="fa-solid fa-car text-brand-terracotta"></i>
-            <span>Estacionamento</span>
-          </div>
-          <p class="text-xs text-brand-charcoal/70 leading-relaxed">
-            Haverá serviço de valet e estacionamento monitorado gratuito para todos os convidados no próprio local da festa.
-          </p>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-brand-rose/30">
-          <div class="flex items-center gap-2 font-semibold text-brand-charcoal mb-2">
-            <i class="fa-solid fa-hotel text-brand-terracotta"></i>
-            <span>Hospedagem</span>
-          </div>
-          <p class="text-xs text-brand-charcoal/70 leading-relaxed">
-            Bloqueamos tarifas especiais no Hotel Villa Micheletto e Pousada dos Sonhos com o código promocional: <strong>ISAEGuilherme</strong>.
-          </p>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-brand-rose/30">
-          <div class="flex items-center gap-2 font-semibold text-brand-charcoal mb-2">
-            <i class="fa-solid fa-camera text-brand-terracotta"></i>
-            <span>Fotos & Redes</span>
-          </div>
-          <p class="text-xs text-brand-charcoal/70 leading-relaxed">
-            Queremos ver todos os cliques! Use a hashtag <strong>#RayeGui2027</strong> ou suba diretamente no mural interativo logo abaixo!
-          </p>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- SEÇÃO 4: CONFIRMAÇÃO DE PRESENÇA (RSVP DIGITAL FUNCIONAL COM FIRESTORE) -->
@@ -400,7 +357,7 @@
         <h2 class="font-cormorant text-4xl sm:text-5xl text-brand-charcoal mt-1">Confirmação de Presença</h2>
         <div class="w-16 h-0.5 bg-brand-terracotta mx-auto mt-3"></div>
         <p class="text-sm text-brand-charcoal/70 mt-3">
-          Por favor, confirme sua presença até o dia <strong>20 de Setembro de 2026</strong> para organizarmos tudo com carinho.
+          Por favor, confirme a sua presença até ao dia <strong>20 de Setembro de 2026</strong> para que possamos organizar tudo perfeitamente.
         </p>
       </div>
 
@@ -417,7 +374,7 @@
           </div>
 
           <div>
-            <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-2">Você comparecerá ao casamento? *</label>
+            <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-2">Irá comparecer ao casamento? *</label>
             <div class="grid grid-cols-2 gap-4">
               <label class="flex items-center gap-3 p-3.5 rounded-xl border border-brand-rose bg-white cursor-pointer has-[:checked]:border-brand-terracotta has-[:checked]:bg-brand-rose/20 transition">
                 <input type="radio" name="attendance" value="sim" checked class="text-brand-terracotta focus:ring-brand-terracotta">
@@ -440,9 +397,7 @@
               </button>
             </div>
             
-            <div id="companions-list" class="space-y-2">
-              <!-- Inputs de acompanhantes dinâmicos inseridos aqui -->
-            </div>
+            <div id="companions-list" class="space-y-2"></div>
           </div>
 
           <div>
@@ -461,7 +416,7 @@
           </div>
           <h4 class="font-cormorant text-3xl font-semibold text-brand-charcoal mb-2">Confirmação Recebida!</h4>
           <p class="text-sm text-brand-charcoal/80 mb-6" id="rsvp-feedback-text">
-            Muito obrigado por responder. Seu registro já foi salvo com segurança em nosso banco de dados.
+            Muito obrigado por responder. O seu registo foi guardado com segurança no nosso banco de dados.
           </p>
           <button onclick="resetRsvpForm()" class="text-xs uppercase tracking-wider text-brand-terracotta font-semibold underline">
             Confirmar outro convidado
@@ -479,16 +434,16 @@
         <h2 class="font-cormorant text-4xl sm:text-5xl text-brand-charcoal mt-1">Lista de Presentes & Cotas Pix</h2>
         <div class="w-16 h-0.5 bg-brand-terracotta mx-auto mt-3"></div>
         <p class="text-sm text-brand-charcoal/70 max-w-xl mx-auto mt-3">
-          Como já possuímos nossa casinha montada, sua presença é nosso maior presente! Se desejar nos presentear, criamos cotas simbólicas para nossa tão sonhada Lua de Mel pela Itália.
+          A vossa presença é o nosso maior presente! Se desejarem presentear-nos com uma contribuição para a nossa tão aguardada Lua de Mel, criámos algumas cotas simbólicas.
         </p>
       </div>
 
-      <!-- Barra de Progresso da Meta Especial -->
+      <!-- Barra de Progresso da Meta -->
       <div class="bg-white rounded-3xl p-6 sm:p-8 border border-brand-rose/50 shadow-sm mb-12 max-w-3xl mx-auto">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
             <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Meta Principal</span>
-            <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal">Passagens & Lua de Mel na Costa Amalfitana</h3>
+            <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal">Passagens & Lua de Mel</h3>
           </div>
           <div class="text-right">
             <span class="text-xs text-brand-charcoal/60">Arrecadado</span>
@@ -527,12 +482,12 @@
       <h2 class="font-cormorant text-4xl sm:text-5xl text-brand-charcoal mt-1">Mural & Álbum Colaborativo</h2>
       <div class="w-16 h-0.5 bg-brand-terracotta mx-auto mt-3"></div>
       <p class="text-sm text-brand-charcoal/70 max-w-xl mx-auto mt-3">
-        Deixe uma mensagem amorosa ou compartilhe fotos tiradas no grande dia. Tudo é sincronizado no banco de dados em tempo real.
+        Deixe a sua mensagem carinhosa para os noivos ou partilhe as melhores fotografias da nossa celebração!
       </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <!-- Formulário para envio de recado ou foto -->
+      <!-- Formulário de Recado/Foto -->
       <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-brand-rose/50 shadow-sm">
         <h3 class="font-cormorant text-2xl font-bold text-brand-charcoal mb-4">Deixar uma Lembrança</h3>
 
@@ -541,7 +496,7 @@
             <i class="fa-solid fa-pen-nib mr-1.5"></i> Recado
           </button>
           <button id="tab-foto-btn" onclick="switchMediaTab('foto')" class="flex-1 pb-3 text-xs uppercase tracking-wider font-semibold border-b-2 border-transparent text-brand-charcoal/60 hover:text-brand-charcoal">
-            <i class="fa-solid fa-camera-retro mr-1.5"></i> Compartilhar Foto
+            <i class="fa-solid fa-camera-retro mr-1.5"></i> Partilhar Foto
           </button>
         </div>
 
@@ -557,7 +512,7 @@
           </div>
           <div>
             <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Mensagem de Felicitações *</label>
-            <textarea id="guest-msg-text" required rows="4" placeholder="Escreva votos com todo seu amor..." class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta resize-none"></textarea>
+            <textarea id="guest-msg-text" required rows="4" placeholder="Escreva os seus votos com todo o coração..." class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta resize-none"></textarea>
           </div>
           <button type="submit" id="btn-submit-message" class="w-full py-3 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs uppercase tracking-wider font-semibold transition shadow-sm flex items-center justify-center gap-2">
             <span>Publicar Recado</span>
@@ -567,8 +522,8 @@
         <!-- Formulário de Foto -->
         <form id="form-photo" onsubmit="handlePhotoSubmit(event)" class="space-y-4 hidden">
           <div class="p-3 bg-brand-cream/50 rounded-xl text-xs text-brand-charcoal/70 border border-brand-rose/40">
-            <i class="fa-solid fa-qrcode mr-1 text-brand-terracotta"></i>
-            Tirou fotos do casamento na mesa ou pista? Envie aqui direto do seu celular!
+            <i class="fa-solid fa-camera mr-1 text-brand-terracotta"></i>
+            Tirou fotos durante a cerimónia ou festa? Carregue-as aqui direto do telemóvel!
           </div>
 
           <div>
@@ -577,7 +532,7 @@
           </div>
           <div>
             <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Legenda da Foto</label>
-            <input type="text" id="photo-caption" placeholder="Ex: Na pista curtindo muito!" class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta">
+            <input type="text" id="photo-caption" placeholder="Ex: Na pista a festejar!" class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta">
           </div>
           <div>
             <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Escolha uma Imagem</label>
@@ -593,7 +548,7 @@
       <div class="lg:col-span-7 space-y-4 max-h-[700px] overflow-y-auto pr-1" id="mural-feed">
         <div class="text-center py-12 text-sm text-brand-charcoal/60 bg-white rounded-2xl border border-brand-rose/40">
           <i class="fa-solid fa-spinner fa-spin text-xl text-brand-terracotta mb-2"></i>
-          <p>Carregando recados e fotos em tempo real...</p>
+          <p>A carregar recados e fotografias em tempo real...</p>
         </div>
       </div>
     </div>
@@ -603,26 +558,22 @@
   <footer class="bg-brand-charcoal text-white/80 py-12 border-t border-brand-rose/20 text-center">
     <div class="max-w-4xl mx-auto px-4">
       <h3 class="font-cormorant text-3xl font-normal text-white mb-2" id="footer-couple-names">Rayza & Guilherme</h3>
-      <p class="text-xs tracking-widest uppercase text-brand-rose mb-6" id="footer-date-venue">18 de Outubro de 2026 • Vale dos Vinhedos, RS</p>
+      <p class="text-xs tracking-widest uppercase text-brand-rose mb-6" id="footer-date-venue">18 de Outubro de 2026 • Bento Gonçalves, RS</p>
       <div class="w-12 h-px bg-white/20 mx-auto mb-6"></div>
       <p class="text-xs text-white/50 max-w-md mx-auto mb-6">
-        Feito com todo amor do mundo para celebrar o nosso matrimônio com as pessoas mais queridas de nossas vidas.
+        Criado com todo o carinho para celebrar o nosso matrimónio junto das pessoas mais queridas.
       </p>
 
       <div class="flex items-center justify-center gap-3">
-        <button onclick="handleAdminButtonClick()" class="inline-flex items-center gap-2 text-xs text-brand-rose hover:text-white uppercase tracking-wider font-medium border border-brand-rose/30 px-4 py-2 rounded-full transition">
+        <button onclick="handleAdminButtonClick()" class="inline-flex items-center gap-2 text-xs text-brand-rose/80 hover:text-white uppercase tracking-wider font-medium border border-brand-rose/30 px-4 py-2 rounded-full transition">
           <i class="fa-solid fa-lock"></i>
           <span>Painel do Casal</span>
-        </button>
-        <button onclick="openFirebaseConfigModal()" class="inline-flex items-center gap-2 text-xs text-white/60 hover:text-white uppercase tracking-wider font-medium border border-white/20 px-4 py-2 rounded-full transition">
-          <i class="fa-solid fa-gear"></i>
-          <span>Configurar Firebase</span>
         </button>
       </div>
     </div>
   </footer>
 
-  <!-- MODAL: PRESENTEAR (PIX & QR CODE DINÂMICO) -->
+  <!-- MODAL: PRESENTEAR (PIX) -->
   <div id="gift-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative transform transition-transform duration-300 scale-95 border border-brand-rose/40 max-h-[90vh] overflow-y-auto" id="gift-modal-content">
       <button onclick="closeGiftModal()" class="absolute top-5 right-5 text-brand-charcoal/50 hover:text-brand-charcoal p-2 text-lg">
@@ -653,48 +604,16 @@
         </div>
         <div>
           <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Mensagem com o Presente (opcional)</label>
-          <textarea id="modal-donor-message" rows="2" placeholder="Que vocês aproveitem muito cada segundo..." class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta resize-none"></textarea>
+          <textarea id="modal-donor-message" rows="2" placeholder="Que vocês aproveitem cada momento dessa viagem..." class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta resize-none"></textarea>
         </div>
       </div>
 
       <div class="bg-brand-ivory p-5 rounded-2xl border border-brand-rose/50 text-center mb-6">
         <p class="text-xs font-semibold uppercase tracking-wider text-brand-charcoal mb-3">Pague com Pix Instantâneo</p>
         
-        <div class="inline-block p-3 bg-white rounded-2xl shadow-sm border border-brand-rose/30 mb-3">
-          <svg class="w-36 h-36 mx-auto" viewBox="0 0 100 100" fill="none">
-            <rect width="100" height="100" fill="white"/>
-            <rect x="10" y="10" width="24" height="24" fill="#2D2926"/>
-            <rect x="14" y="14" width="16" height="16" fill="white"/>
-            <rect x="18" y="18" width="8" height="8" fill="#C88572"/>
-
-            <rect x="66" y="10" width="24" height="24" fill="#2D2926"/>
-            <rect x="70" y="14" width="16" height="16" fill="white"/>
-            <rect x="74" y="18" width="8" height="8" fill="#C88572"/>
-
-            <rect x="10" y="66" width="24" height="24" fill="#2D2926"/>
-            <rect x="14" y="70" width="16" height="16" fill="white"/>
-            <rect x="18" y="74" width="8" height="8" fill="#C88572"/>
-
-            <rect x="42" y="12" width="6" height="6" fill="#2D2926"/>
-            <rect x="52" y="18" width="6" height="6" fill="#2D2926"/>
-            <rect x="40" y="26" width="6" height="6" fill="#2D2926"/>
-            <rect x="52" y="32" width="6" height="6" fill="#2D2926"/>
-            <rect x="12" y="44" width="6" height="6" fill="#2D2926"/>
-            <rect x="22" y="52" width="6" height="6" fill="#2D2926"/>
-            <rect x="42" y="44" width="8" height="8" fill="#C88572"/>
-            <rect x="62" y="44" width="6" height="6" fill="#2D2926"/>
-            <rect x="80" y="48" width="6" height="6" fill="#2D2926"/>
-            <rect x="44" y="66" width="6" height="6" fill="#2D2926"/>
-            <rect x="54" y="74" width="6" height="6" fill="#2D2926"/>
-            <rect x="70" y="66" width="6" height="6" fill="#2D2926"/>
-            <rect x="82" y="78" width="6" height="6" fill="#2D2926"/>
-            <rect x="64" y="82" width="6" height="6" fill="#2D2926"/>
-          </svg>
-        </div>
-
         <p class="text-[11px] text-brand-charcoal/70 mb-2">Chave Pix dos Noivos:</p>
         <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-brand-rose/60">
-          <input type="text" id="pix-copy-key" readonly value="casamento-isa-gabi-048209420@pix.amorei.br" class="text-xs text-brand-charcoal/80 bg-transparent w-full focus:outline-none">
+          <input type="text" id="pix-copy-key" readonly value="" class="text-xs text-brand-charcoal/80 bg-transparent w-full focus:outline-none font-mono">
           <button onclick="copyPixCode()" class="px-3 py-1 bg-brand-rose/40 hover:bg-brand-rose text-brand-charcoal text-xs font-semibold rounded-lg transition whitespace-nowrap">
             <i class="fa-regular fa-copy mr-1"></i> Copiar
           </button>
@@ -704,13 +623,10 @@
       <button onclick="confirmGiftPayment()" id="btn-confirm-gift" class="w-full py-4 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs uppercase tracking-wider font-semibold transition shadow-md flex items-center justify-center gap-2">
         <span>Já Fiz a Transferência Pix!</span>
       </button>
-      <p class="text-[11px] text-center text-brand-charcoal/60 mt-2">
-        Ao confirmar, seu presente e mensagem serão registrados diretamente no banco do casal.
-      </p>
     </div>
   </div>
 
-  <!-- MODAL: AUTENTICAÇÃO DO PAINEL DOS NOIVOS (FIREBASE AUTH OU PIN) -->
+  <!-- MODAL: AUTENTICAÇÃO DO PAINEL DOS NOIVOS -->
   <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-brand-rose">
       <button onclick="closeLoginModal()" class="absolute top-5 right-5 text-brand-charcoal/50 hover:text-brand-charcoal p-2 text-lg">
@@ -721,30 +637,23 @@
         <div class="w-12 h-12 rounded-2xl bg-brand-rose/30 text-brand-terracotta flex items-center justify-center mx-auto text-xl mb-3">
           <i class="fa-solid fa-lock"></i>
         </div>
-        <h3 class="font-cormorant text-3xl font-bold text-brand-charcoal">Área Restrita dos Noivos</h3>
-        <p class="text-xs text-brand-charcoal/60 mt-1">Acesso exclusivo para os noivos gerenciarem os dados do casamento</p>
+        <h3 class="font-cormorant text-3xl font-bold text-brand-charcoal">Área dos Noivos</h3>
+        <p class="text-xs text-brand-charcoal/60 mt-1">Acesso protegido para administração de confirmações e presentes</p>
       </div>
 
       <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">E-mail ou Senha de Acesso</label>
-          <input type="text" id="admin-login-user" value="noivos@casamento.com" placeholder="ex: noivos@casamento.com" class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta">
-        </div>
-        <div>
-          <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Senha (Padrão: amorei123)</label>
-          <input type="password" id="admin-login-password" value="amorei123" placeholder="Sua senha secreta" class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta">
+          <label class="block text-xs uppercase tracking-wider font-semibold text-brand-charcoal mb-1">Senha de Acesso</label>
+          <input type="password" id="admin-login-password" required placeholder="Digite sua senha" class="w-full px-4 py-2.5 rounded-xl border border-brand-rose/60 text-sm focus:outline-none focus:border-brand-terracotta">
         </div>
         <button type="submit" id="btn-admin-login" class="w-full py-3.5 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs uppercase tracking-wider font-semibold transition shadow-md flex items-center justify-center gap-2">
           <span>Entrar no Painel</span>
         </button>
       </form>
-      <p class="text-[11px] text-center text-brand-charcoal/50 mt-4">
-        Dica: se não tiver criado usuários no Firebase Auth, use a senha padrão <strong>amorei123</strong>.
-      </p>
     </div>
   </div>
 
-  <!-- MODAL: PAINEL ADMINISTRATIVO DOS NOIVOS (DASHBOARD & FIRESTORE MANAGER) -->
+  <!-- MODAL: PAINEL ADMINISTRATIVO (DASHBOARD) -->
   <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
     <div class="bg-white w-full max-w-5xl rounded-3xl p-6 sm:p-8 shadow-2xl relative transform transition-transform duration-300 scale-95 border border-brand-rose max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-brand-rose/40 pb-5 mb-6">
@@ -790,7 +699,7 @@
         <div class="bg-brand-cream/60 p-4 rounded-2xl border border-brand-rose/40">
           <span class="text-xs uppercase tracking-wider text-brand-charcoal/60 font-semibold block">Recados no Mural</span>
           <div class="font-cormorant text-3xl font-bold text-blue-600 mt-1" id="admin-stat-messages">0</div>
-          <span class="text-[11px] text-brand-charcoal/60">mensagens de carinho</span>
+          <span class="text-[11px] text-brand-charcoal/60">mensagens recebidas</span>
         </div>
       </div>
 
@@ -806,7 +715,7 @@
           Gerenciar Mural
         </button>
         <button onclick="switchAdminTab('config')" id="admin-tab-config" class="pb-3 text-xs uppercase tracking-wider font-semibold border-b-2 border-transparent text-brand-charcoal/60 hover:text-brand-charcoal whitespace-nowrap">
-          Configuração do Casal
+          Configurações do Casal
         </button>
       </div>
 
@@ -922,74 +831,12 @@
     </div>
   </div>
 
-  <!-- MODAL: CONFIGURAÇÃO DE CHAVES DO FIREBASE -->
-  <div id="firebase-config-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
-    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative border border-brand-rose max-h-[90vh] overflow-y-auto">
-      <button onclick="closeFirebaseConfigModal()" class="absolute top-5 right-5 text-brand-charcoal/50 hover:text-brand-charcoal p-2 text-lg">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl mb-3">
-          <i class="fa-solid fa-fire"></i>
-        </div>
-        <h3 class="font-cormorant text-3xl font-bold text-brand-charcoal">Configurar Firebase</h3>
-        <p class="text-xs text-brand-charcoal/70 mt-1">
-          Insira suas credenciais do console do Firebase para sincronização direta na nuvem.
-        </p>
-      </div>
-
-      <div class="p-3.5 bg-brand-cream rounded-2xl text-[11px] text-brand-charcoal/80 mb-4 border border-brand-rose/40">
-        <strong>Como obter:</strong> No Console do Firebase (firebase.google.com), crie um projeto Web, ative o <em>Firestore Database</em> e o <em>Authentication</em>, e copie as chaves do seu SDK Web abaixo.
-      </div>
-
-      <form id="firebase-config-form" onsubmit="handleSaveFirebaseConfig(event)" class="space-y-3">
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">apiKey</label>
-          <input type="text" id="fb-apiKey" placeholder="AIzaSy..." class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">authDomain</label>
-          <input type="text" id="fb-authDomain" placeholder="seu-projeto.firebaseapp.com" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">projectId</label>
-          <input type="text" id="fb-projectId" placeholder="seu-projeto-id" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">storageBucket</label>
-          <input type="text" id="fb-storageBucket" placeholder="seu-projeto.appspot.com" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">messagingSenderId</label>
-          <input type="text" id="fb-messagingSenderId" placeholder="123456789" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-        <div>
-          <label class="block text-[11px] uppercase font-bold text-brand-charcoal mb-1">appId</label>
-          <input type="text" id="fb-appId" placeholder="1:123456789:web:abcdef" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs font-mono">
-        </div>
-
-        <div class="pt-2 flex gap-2">
-          <button type="submit" class="flex-1 py-3 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs uppercase tracking-wider font-semibold transition">
-            Salvar e Conectar
-          </button>
-          <button type="button" onclick="restoreDemoFirebase()" class="px-4 py-3 bg-brand-cream hover:bg-brand-rose/40 text-brand-charcoal rounded-xl text-xs font-semibold">
-            Modo Local / Demo
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- SCRIPT FIREBASE SDK OFICIAL & APLICAÇÃO -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { 
       getAuth, 
-      signInAnonymously, 
-      signInWithEmailAndPassword, 
-      signOut, 
-      onAuthStateChanged 
+      signInAnonymously 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { 
       getFirestore, 
@@ -1003,14 +850,23 @@
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     /* =========================================================
-       1. CONFIGURAÇÃO INICIAL E ESTADO
+       1. CREDENCIAIS DIRETAS DO PROJETO FIREBASE
        ========================================================= */
+    const firebaseConfig = {
+      apiKey: "COLE_SUA_API_KEY_AQUI", // Insira a sua chave AIzaSy...
+      authDomain: "casamento-site-54157.firebaseapp.com",
+      projectId: "casamento-site-54157",
+      storageBucket: "casamento-site-54157.firebasestorage.app",
+      messagingSenderId: "594378119398",
+      appId: "1:594378119398:web:756358c2cbba320e6f6a7d"
+    };
+
     const DEFAULT_CONFIG = {
       bride: 'Rayza',
       groom: 'Guilherme',
       date: '2026-10-18T16:30:00',
       venue: 'Villa Bellinzona - Bento Gonçalves, RS',
-      pixKey: 'casamento-isa-gabi-048209420@pix.amorei.br',
+      pixKey: 'guilherm.men@hotmail.com',
       goalTotal: 20000
     };
 
@@ -1061,7 +917,7 @@
         category: 'divertidos',
         amount: 150,
         image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80',
-        desc: 'Contribuição para aulas de ioga e meditação nos dias de discussão sobre a cor da almofada.'
+        desc: 'Contribuição para aulas de meditação e equilíbrio nos dias de correria.'
       },
       {
         id: '7',
@@ -1089,60 +945,41 @@
     let isFirebaseReady = false;
     let db = null;
     let auth = null;
-    let currentUser = null;
     let isAdminAuthenticated = false;
 
-    // Tentar carregar chaves do Firebase
-    function getStoredFirebaseConfig() {
-      const stored = localStorage.getItem('amorei_firebase_config');
-      if (stored) {
-        try {
-          return JSON.parse(stored);
-        } catch (e) {
-          return null;
-        }
+    // Atualização do indicador de status (bolinha discreta)
+    function setConnectionDot(status) {
+      const dot = document.getElementById('firebase-status-dot');
+      const wrapper = document.getElementById('firebase-dot-wrapper');
+      if (!dot || !wrapper) return;
+
+      if (status === 'online') {
+        dot.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-sm";
+        wrapper.setAttribute('title', 'Firebase Ligado (Tempo Real Ativo)');
+      } else if (status === 'offline') {
+        dot.className = "inline-block w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm";
+        wrapper.setAttribute('title', 'Sem ligação ao Firebase (Modo Local)');
+      } else {
+        dot.className = "inline-block w-2.5 h-2.5 rounded-full bg-amber-400";
+        wrapper.setAttribute('title', 'A ligar ao Firebase...');
       }
-      return null;
     }
 
     async function setupFirebase() {
-      const userConfig = getStoredFirebaseConfig();
-      if (userConfig && userConfig.apiKey && userConfig.projectId) {
-        try {
-          const app = initializeApp(userConfig);
-          auth = getAuth(app);
-          db = getFirestore(app);
+      try {
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
 
-          await signInAnonymously(auth);
-          isFirebaseReady = true;
+        await signInAnonymously(auth);
+        isFirebaseReady = true;
 
-          updateConnectionStatus(true, "Conectado ao Firebase Firestore (Tempo Real Ativo)");
-          startFirestoreListeners();
-          return;
-        } catch (error) {
-          console.warn("Erro ao conectar no Firebase configurado:", error);
-          updateConnectionStatus(false, "Falha na conexão Firebase. Rodando em Modo Local/Demo.");
-        }
-      } else {
-        updateConnectionStatus(false, "Modo Demo / Local Ativo (Clique para plugar Firebase real)");
-      }
-
-      // Fallback para armazenamento LocalStorage
-      initLocalStorageFallback();
-    }
-
-    function updateConnectionStatus(isOnline, text) {
-      const banner = document.getElementById('connection-banner');
-      const indicator = document.getElementById('conn-status-indicator');
-      const label = document.getElementById('conn-status-text');
-
-      label.innerText = text;
-      if (isOnline) {
-        banner.className = "bg-emerald-900 text-emerald-100 text-[11px] py-1.5 px-4 text-center tracking-wide font-medium flex items-center justify-center gap-2";
-        indicator.className = "inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
-      } else {
-        banner.className = "bg-amber-900 text-amber-100 text-[11px] py-1.5 px-4 text-center tracking-wide font-medium flex items-center justify-center gap-2";
-        indicator.className = "inline-block w-2 h-2 rounded-full bg-amber-400";
+        setConnectionDot('online');
+        startFirestoreListeners();
+      } catch (error) {
+        console.warn("Firebase a correr em fallback local:", error);
+        setConnectionDot('offline');
+        initLocalStorageFallback();
       }
     }
 
@@ -1152,37 +989,32 @@
     function startFirestoreListeners() {
       if (!db) return;
 
-      // Escutar RSVPs
       onSnapshot(collection(db, "rsvps"), (snapshot) => {
         rsvpList = [];
         snapshot.forEach((docSnap) => {
           rsvpList.push({ id: docSnap.id, ...docSnap.data() });
         });
         updateDashboardAndStats();
-      }, (err) => console.error("Erro ao carregar RSVPs:", err));
+      }, (err) => console.error("Erro RSVPs:", err));
 
-      // Escutar Presentes
       onSnapshot(collection(db, "presentes"), (snapshot) => {
         giftsList = [];
         snapshot.forEach((docSnap) => {
           giftsList.push({ id: docSnap.id, ...docSnap.data() });
         });
         updateDashboardAndStats();
-      }, (err) => console.error("Erro ao carregar Presentes:", err));
+      }, (err) => console.error("Erro Presentes:", err));
 
-      // Escutar Mensagens / Mural / Fotos
       onSnapshot(collection(db, "mensagens"), (snapshot) => {
         messagesList = [];
         snapshot.forEach((docSnap) => {
           messagesList.push({ id: docSnap.id, ...docSnap.data() });
         });
-        // Ordenar por data decrescente
         messagesList.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
         renderMuralFeed();
         updateDashboardAndStats();
-      }, (err) => console.error("Erro ao carregar Mural:", err));
+      }, (err) => console.error("Erro Mural:", err));
 
-      // Escutar Configurações do Site
       onSnapshot(collection(db, "configuracao"), (snapshot) => {
         snapshot.forEach((docSnap) => {
           if (docSnap.id === "casamento") {
@@ -1190,91 +1022,16 @@
             updateGeneralUI();
           }
         });
-      }, (err) => console.error("Erro ao carregar Config:", err));
+      }, (err) => console.error("Erro Config:", err));
     }
 
     /* =========================================================
-       3. FALLBACK LOCALSTORAGE (MODO DEMO INSTANTÂNEO)
+       3. FALLBACK LOCAL
        ========================================================= */
     function initLocalStorageFallback() {
-      rsvpList = JSON.parse(localStorage.getItem('amorei_rsvps')) || [
-        {
-          id: '1',
-          name: 'Camila Ferreira Rocha',
-          phone: '(51) 99887-1234',
-          attendance: 'sim',
-          companions: ['Lucas Rocha (Esposo)'],
-          notes: 'Vegetariana',
-          date: '10/05/2026'
-        },
-        {
-          id: '2',
-          name: 'Rodrigo Albuquerque',
-          phone: '(11) 98765-4321',
-          attendance: 'sim',
-          companions: [],
-          notes: '',
-          date: '12/05/2026'
-        },
-        {
-          id: '3',
-          name: 'Beatriz Martins',
-          phone: '(48) 99123-9988',
-          attendance: 'nao',
-          companions: [],
-          notes: 'Estarei fora do país nessa data, mas envio todo amor!',
-          date: '15/05/2026'
-        }
-      ];
-
-      giftsList = JSON.parse(localStorage.getItem('amorei_gifts_received')) || [
-        {
-          id: '1',
-          donor: 'Tia Helena e Tio Carlos',
-          giftTitle: 'Jantar Romântico em Positano',
-          amount: 350,
-          message: 'Aproveitem muito a Itália queridos!',
-          date: '12/05/2026'
-        },
-        {
-          id: '2',
-          donor: 'Família Silveira',
-          giftTitle: 'Passagens & Lua de Mel',
-          amount: 1500,
-          message: 'Presente com carinho para o melhor casal.',
-          date: '14/05/2026'
-        }
-      ];
-
-      messagesList = JSON.parse(localStorage.getItem('amorei_messages_feed')) || [
-        /*{
-          id: '1',
-          name: 'Tia Helena e Tio Carlos',
-          tag: 'Padrinhos',
-          text: 'Isa e Gabi, que alegria imensa ver o amor de vocês florescer tão lindo. Que Deus abençoe essa nova etapa com sabedoria e harmonia!',
-          type: 'recado',
-          date: 'Ontem às 18:20'
-        },
-        {
-          id: '2',
-          name: 'Matheus & Juliana',
-          tag: 'Amigos de Faculdade',
-          text: 'Contando os dias para essa festa histórica! Preparem a pista de dança!',
-          type: 'recado',
-          date: 'Há 2 dias'
-        },
-        {
-          id: '3',
-          name: 'Mariana Lima',
-          tag: 'Madrinha',
-          text: 'Lembrança do chá de panela mais alegre de todos!',
-          type: 'foto',
-          imgUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&auto=format&fit=crop&q=80',
-          date: 'Há 4 dias'
-        }*/
-      ];
-
-      saveLocalState();
+      rsvpList = JSON.parse(localStorage.getItem('amorei_rsvps')) || [];
+      giftsList = JSON.parse(localStorage.getItem('amorei_gifts_received')) || [];
+      messagesList = JSON.parse(localStorage.getItem('amorei_messages_feed')) || [];
       updateDashboardAndStats();
       renderMuralFeed();
     }
@@ -1287,7 +1044,7 @@
     }
 
     /* =========================================================
-       4. CONTADOR REGRESSIVO E UI
+       4. CRONÓMETRO REGRESSIVO & UI
        ========================================================= */
     function initCountdown() {
       function update() {
@@ -1336,7 +1093,6 @@
     function updateDashboardAndStats() {
       updateGeneralUI();
 
-      // Métricas de Presença
       const confirmed = rsvpList.filter(g => g.attendance === 'sim');
       const declined = rsvpList.filter(g => g.attendance === 'nao');
       const companionsCount = confirmed.reduce((acc, curr) => acc + (curr.companions ? curr.companions.length : 0), 0);
@@ -1345,12 +1101,10 @@
       document.getElementById('admin-stat-companions').innerText = `+${companionsCount} acompanhantes`;
       document.getElementById('admin-stat-declined').innerText = declined.length;
 
-      // Métricas de Presentes
       const totalRaised = giftsList.reduce((acc, curr) => acc + Number(curr.amount || 0), 0);
       document.getElementById('admin-stat-gifts-total').innerText = `R$ ${totalRaised.toLocaleString('pt-BR')}`;
       document.getElementById('admin-stat-gifts-count').innerText = `${giftsList.length} cotas`;
 
-      // Barra de progresso na Home
       const goal = Number(appConfig.goalTotal) || 20000;
       const percent = Math.min(100, Math.round((totalRaised / goal) * 100));
 
@@ -1358,17 +1112,15 @@
       document.getElementById('goal-progress-bar').style.width = `${percent}%`;
       document.getElementById('goal-percent-display').innerText = `${percent}% alcançado`;
 
-      // Métricas do Mural
       document.getElementById('admin-stat-messages').innerText = messagesList.length;
 
-      // Tabelas do Admin
       renderAdminGuestsTable();
       renderAdminGiftsTable();
       renderAdminMuralTable();
     }
 
     /* =========================================================
-       5. RSVP - ENVIO PARA O FIRESTORE
+       5. RSVP
        ========================================================= */
     window.addCompanionInput = function() {
       const list = document.getElementById('companions-list');
@@ -1387,7 +1139,7 @@
       event.preventDefault();
       const submitBtn = document.getElementById('rsvp-submit-btn');
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Salvando...</span>`;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>A guardar...</span>`;
 
       const name = document.getElementById('rsvp-name').value.trim();
       const phone = document.getElementById('rsvp-phone').value.trim();
@@ -1426,15 +1178,15 @@
 
         const feedback = document.getElementById('rsvp-feedback-text');
         if (attendance === 'sim') {
-          feedback.innerText = `Obrigado, ${name}! Sua presença foi confirmada com sucesso. Esperamos você no nosso grande dia!`;
+          feedback.innerText = `Obrigado, ${name}! A sua presença foi confirmada com sucesso. Esperamos por si!`;
         } else {
-          feedback.innerText = `Sentiremos sua falta, ${name}! Agradecemos imensamente por nos avisar.`;
+          feedback.innerText = `Sentiremos a sua falta, ${name}! Agradecemos imenso por nos avisar.`;
         }
 
-        showToast("RSVP registrado com sucesso no banco de dados!");
+        showToast("RSVP registado com sucesso!");
       } catch (err) {
         console.error(err);
-        showToast("Erro ao salvar no Firestore. Verifique suas regras.", "error");
+        showToast("Erro ao guardar no banco de dados.", "error");
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<span>Enviar Confirmação</span>`;
@@ -1449,7 +1201,7 @@
     };
 
     /* =========================================================
-       6. PRESENTES / PIX E FIRESTORE
+       6. PRESENTES / PIX
        ========================================================= */
     window.renderGiftsGrid = function(category = 'todos') {
       const grid = document.getElementById('gifts-grid');
@@ -1493,7 +1245,6 @@
       });
       btnElement.classList.remove('bg-white', 'text-brand-charcoal/80');
       btnElement.classList.add('bg-brand-terracotta', 'text-white');
-
       window.renderGiftsGrid(category);
     };
 
@@ -1527,12 +1278,8 @@
       const copyText = document.getElementById("pix-copy-key");
       copyText.select();
       copyText.setSelectionRange(0, 99999);
-      try {
-        document.execCommand("copy");
-        showToast("Chave Pix copiada com sucesso! Abra seu aplicativo bancário.");
-      } catch (err) {
-        showToast("Falha ao copiar automaticamente.");
-      }
+      navigator.clipboard.writeText(copyText.value);
+      showToast("Chave Pix copiada com sucesso!");
     };
 
     window.confirmGiftPayment = async function() {
@@ -1541,13 +1288,13 @@
       const amount = Number(document.getElementById('modal-gift-amount').value) || (currentSelectedGift ? currentSelectedGift.amount : 100);
 
       if (!donorName) {
-        showToast("Por favor, preencha seu nome para identificação!", "error");
+        showToast("Por favor, preencha o seu nome!", "error");
         return;
       }
 
       const confirmBtn = document.getElementById('btn-confirm-gift');
       confirmBtn.disabled = true;
-      confirmBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Registrando...</span>`;
+      confirmBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>A registar...</span>`;
 
       const giftEntry = {
         donor: donorName,
@@ -1577,29 +1324,17 @@
           }
         } else {
           giftsList.unshift({ id: Date.now().toString(), ...giftEntry });
-          if (donorMessage) {
-            messagesList.unshift({
-              id: Date.now().toString(),
-              name: donorName,
-              tag: 'Presenteou com Cota',
-              text: donorMessage,
-              type: 'recado',
-              date: 'Agora mesmo'
-            });
-          }
           saveLocalState();
           updateDashboardAndStats();
-          renderMuralFeed();
         }
 
         window.closeGiftModal();
         document.getElementById('modal-donor-name').value = '';
         document.getElementById('modal-donor-message').value = '';
-
-        showToast(`Obrigado pelo carinho, ${donorName}! Seu presente foi registrado com sucesso.`);
+        showToast(`Obrigado pelo carinho, ${donorName}! Presente registado.`);
       } catch (err) {
         console.error(err);
-        showToast("Erro ao registrar presente no Firestore.", "error");
+        showToast("Erro ao registar presente.", "error");
       } finally {
         confirmBtn.disabled = false;
         confirmBtn.innerHTML = `<span>Já Fiz a Transferência Pix!</span>`;
@@ -1607,7 +1342,7 @@
     };
 
     /* =========================================================
-       7. MURAL DE RECADOS & FOTOS EM TEMPO REAL
+       7. MURAL DE RECADOS & FOTOS
        ========================================================= */
     window.switchMediaTab = function(tab) {
       const recadoBtn = document.getElementById('tab-recado-btn');
@@ -1636,10 +1371,10 @@
       event.preventDefault();
       const btn = document.getElementById('btn-submit-message');
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Publicando...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>A publicar...</span>`;
 
       const name = document.getElementById('guest-msg-name').value.trim();
-      const tag = document.getElementById('guest-msg-tag').value.trim() || 'Convidado Especial';
+      const tag = document.getElementById('guest-msg-tag').value.trim() || 'Convidado';
       const text = document.getElementById('guest-msg-text').value.trim();
 
       const newMsg = {
@@ -1665,7 +1400,7 @@
         }
 
         document.getElementById('form-message').reset();
-        showToast("Recado publicado no mural com amor!");
+        showToast("Recado publicado no mural com sucesso!");
       } catch (err) {
         console.error(err);
         showToast("Erro ao publicar recado.", "error");
@@ -1679,20 +1414,17 @@
       event.preventDefault();
       const btn = document.getElementById('btn-submit-photo');
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Enviando foto...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>A enviar fotografia...</span>`;
 
       const name = document.getElementById('photo-guest-name').value.trim();
       const caption = document.getElementById('photo-caption').value.trim();
       const fileInput = document.getElementById('photo-file');
 
-      // Foto fallback padrão
-      let imgUrl = 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&auto=format&fit=crop&q=80';
-
       const sendPhoto = async (url) => {
         const newPhoto = {
           name,
-          tag: 'Foto da Festa',
-          text: caption || 'Momento registrado com muito carinho!',
+          tag: 'Foto Partilhada',
+          text: caption || '',
           type: 'foto',
           imgUrl: url,
           date: 'Agora mesmo',
@@ -1713,10 +1445,10 @@
           }
 
           document.getElementById('form-photo').reset();
-          showToast("Foto adicionada ao álbum do casamento!");
+          showToast("Fotografia enviada com sucesso!");
         } catch (e) {
           console.error(e);
-          showToast("Erro ao salvar foto.", "error");
+          showToast("Erro ao guardar fotografia.", "error");
         } finally {
           btn.disabled = false;
           btn.innerHTML = `<span>Enviar Foto ao Álbum</span>`;
@@ -1730,7 +1462,7 @@
         };
         reader.readAsDataURL(fileInput.files[0]);
       } else {
-        sendPhoto(imgUrl);
+        sendPhoto('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&auto=format&fit=crop&q=80');
       }
     };
 
@@ -1757,7 +1489,7 @@
               <span class="text-[11px] text-brand-charcoal/50">${item.date || 'Recente'}</span>
             </div>
             <div class="rounded-xl overflow-hidden mb-3 max-h-72 border border-brand-rose/30">
-              <img src="${item.imgUrl}" alt="Foto compartilhada" class="w-full h-full object-cover">
+              <img src="${item.imgUrl}" alt="Fotografia" class="w-full h-full object-cover">
             </div>
             ${item.text ? `<p class="text-xs text-brand-charcoal/80 leading-relaxed italic">"${item.text}"</p>` : ''}
           `;
@@ -1773,13 +1505,12 @@
             <p class="text-xs text-brand-charcoal/80 leading-relaxed italic mt-2">"${item.text}"</p>
           `;
         }
-
         feed.appendChild(card);
       });
     }
 
     /* =========================================================
-       8. AUTENTICAÇÃO E PAINEL ADMINISTRATIVO DOS NOIVOS
+       8. PAINEL DOS NOIVOS (ADMIN)
        ========================================================= */
     window.handleAdminButtonClick = function() {
       if (isAdminAuthenticated) {
@@ -1801,55 +1532,24 @@
       setTimeout(() => modal.classList.add('hidden'), 300);
     };
 
-    window.handleAdminLogin = async function(event) {
+    window.handleAdminLogin = function(event) {
       event.preventDefault();
-      const btn = document.getElementById('btn-admin-login');
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Autenticando...</span>`;
-
-      const email = document.getElementById('admin-login-user').value.trim();
       const password = document.getElementById('admin-login-password').value.trim();
 
-      try {
-        if (isFirebaseReady && auth) {
-          try {
-            const userCred = await signInWithEmailAndPassword(auth, email, password);
-            currentUser = userCred.user;
-            isAdminAuthenticated = true;
-          } catch (authError) {
-            // Se o usuário ainda não foi cadastrado no Firebase Auth, aceita senha mestra
-            if (password === 'amorei123') {
-              isAdminAuthenticated = true;
-            } else {
-              throw authError;
-            }
-          }
-        } else {
-          if (password === 'amorei123' || password === 'admin') {
-            isAdminAuthenticated = true;
-          } else {
-            throw new Error("Senha incorreta");
-          }
-        }
-
+      if (password === 'amorei123' || password === 'admin') {
+        isAdminAuthenticated = true;
         window.closeLoginModal();
         window.toggleAdminModal(true);
-        showToast("Bem-vindos de volta, noivos!");
-      } catch (e) {
-        showToast("Credenciais incorretas ou não autorizadas.", "error");
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<span>Entrar no Painel</span>`;
+        showToast("Bem-vindos de volta ao Painel!");
+      } else {
+        showToast("Senha incorreta.", "error");
       }
     };
 
-    window.handleAdminLogout = async function() {
+    window.handleAdminLogout = function() {
       isAdminAuthenticated = false;
-      if (isFirebaseReady && auth) {
-        await signInAnonymously(auth);
-      }
       window.toggleAdminModal(false);
-      showToast("Sessão finalizada com sucesso.");
+      showToast("Sessão finalizada.");
     };
 
     window.toggleAdminModal = function(show) {
@@ -1871,8 +1571,7 @@
     };
 
     window.switchAdminTab = function(tab) {
-      const tabs = ['rsvp', 'gifts', 'mural', 'config'];
-      tabs.forEach(t => {
+      ['rsvp', 'gifts', 'mural', 'config'].forEach(t => {
         const btn = document.getElementById(`admin-tab-${t}`);
         const content = document.getElementById(`admin-content-${t}`);
         if (t === tab) {
@@ -1901,7 +1600,7 @@
       });
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-brand-charcoal/50">Nenhum registro encontrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-brand-charcoal/50">Nenhum registo encontrado.</td></tr>`;
         return;
       }
 
@@ -1936,7 +1635,7 @@
         saveLocalState();
         updateDashboardAndStats();
       }
-      showToast("Convidado removido do registro.");
+      showToast("Convidado removido.");
     };
 
     window.renderAdminGiftsTable = function() {
@@ -1944,7 +1643,7 @@
       tbody.innerHTML = '';
 
       if (giftsList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-brand-charcoal/50">Nenhuma cota registrada ainda.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-brand-charcoal/50">Nenhuma cota registada ainda.</td></tr>`;
         return;
       }
 
@@ -1975,7 +1674,7 @@
         saveLocalState();
         updateDashboardAndStats();
       }
-      showToast("Cota removida do extrato.");
+      showToast("Cota removida.");
     };
 
     window.renderAdminMuralTable = function() {
@@ -2021,7 +1720,7 @@
       event.preventDefault();
       const saveBtn = document.getElementById('btn-save-config');
       saveBtn.disabled = true;
-      saveBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Salvando...`;
+      saveBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> A guardar...`;
 
       appConfig.bride = document.getElementById('config-bride').value.trim();
       appConfig.groom = document.getElementById('config-groom').value.trim();
@@ -2038,10 +1737,10 @@
         }
         updateGeneralUI();
         updateDashboardAndStats();
-        showToast("Configurações atualizadas no banco!");
+        showToast("Configurações atualizadas!");
       } catch (err) {
         console.error(err);
-        showToast("Erro ao gravar alterações no Firebase.", "error");
+        showToast("Erro ao gravar alterações.", "error");
       } finally {
         saveBtn.disabled = false;
         saveBtn.innerHTML = `Salvar Alterações`;
@@ -2059,7 +1758,7 @@
       const link = document.createElement("a");
       const url = URL.createObjectURL(blob);
       link.setAttribute("href", url);
-      link.setAttribute("download", `lista_casamento_${appConfig.bride}_${appConfig.groom}.csv`);
+      link.setAttribute("download", `convidados_${appConfig.bride}_${appConfig.groom}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -2067,63 +1766,7 @@
     };
 
     /* =========================================================
-       9. MODAL DE CONFIGURAÇÃO DAS CHAVES DO FIREBASE
-       ========================================================= */
-    window.openFirebaseConfigModal = function() {
-      const userConfig = getStoredFirebaseConfig() || {};
-      document.getElementById('fb-apiKey').value = userConfig.apiKey || '';
-      document.getElementById('fb-authDomain').value = userConfig.authDomain || '';
-      document.getElementById('fb-projectId').value = userConfig.projectId || '';
-      document.getElementById('fb-storageBucket').value = userConfig.storageBucket || '';
-      document.getElementById('fb-messagingSenderId').value = userConfig.messagingSenderId || '';
-      document.getElementById('fb-appId').value = userConfig.appId || '';
-
-      const modal = document.getElementById('firebase-config-modal');
-      modal.classList.remove('hidden');
-      setTimeout(() => modal.classList.remove('opacity-0'), 10);
-    };
-
-    window.closeFirebaseConfigModal = function() {
-      const modal = document.getElementById('firebase-config-modal');
-      modal.classList.add('opacity-0');
-      setTimeout(() => modal.classList.add('hidden'), 300);
-    };
-
-    window.handleSaveFirebaseConfig = function(event) {
-      event.preventDefault();
-      const config = {
-        apiKey: document.getElementById('fb-apiKey').value.trim(),
-        authDomain: document.getElementById('fb-authDomain').value.trim(),
-        projectId: document.getElementById('fb-projectId').value.trim(),
-        storageBucket: document.getElementById('fb-storageBucket').value.trim(),
-        messagingSenderId: document.getElementById('fb-messagingSenderId').value.trim(),
-        appId: document.getElementById('fb-appId').value.trim()
-      };
-
-      if (!config.apiKey || !config.projectId) {
-        showToast("Preencha ao menos apiKey e projectId!", "error");
-        return;
-      }
-
-      localStorage.setItem('amorei_firebase_config', JSON.stringify(config));
-      showToast("Chaves salvas! Conectando ao Firestore...");
-      window.closeFirebaseConfigModal();
-      setupFirebase();
-    };
-
-    window.restoreDemoFirebase = function() {
-      localStorage.removeItem('amorei_firebase_config');
-      isFirebaseReady = false;
-      db = null;
-      auth = null;
-      updateConnectionStatus(false, "Modo Demo / Local Ativo (Clique para plugar Firebase real)");
-      initLocalStorageFallback();
-      window.closeFirebaseConfigModal();
-      showToast("Modo Demonstração restaurado!");
-    };
-
-    /* =========================================================
-       10. UTILITÁRIOS GERAIS
+       9. UTILITÁRIOS
        ========================================================= */
     window.toggleMobileMenu = function() {
       document.getElementById('mobile-menu').classList.toggle('hidden');
@@ -2131,7 +1774,7 @@
 
     window.addToCalendar = function() {
       const title = encodeURIComponent(`Casamento de ${appConfig.bride} & ${appConfig.groom}`);
-      const details = encodeURIComponent("Celebração do nosso casamento com cerimônia e festa inesquecíveis.");
+      const details = encodeURIComponent("Celebração do nosso casamento com cerimônia e festa.");
       const location = encodeURIComponent(appConfig.venue);
       const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=20261018T193000Z/20261019T060000Z`;
       window.open(googleCalUrl, '_blank');
@@ -2155,7 +1798,6 @@
       }, 4000);
     };
 
-    // Inicialização da aplicação
     window.addEventListener('DOMContentLoaded', () => {
       initCountdown();
       window.renderGiftsGrid('todos');
