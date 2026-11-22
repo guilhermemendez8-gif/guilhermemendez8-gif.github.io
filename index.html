@@ -622,7 +622,7 @@
     </div>
   </div>
 
-  <!-- MODAL: PRESENTEAR (PIX) -->
+  <!-- MODAL: PRESENTEAR (PIX + GERADOR DE QR CODE) -->
   <div id="gift-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative transform transition-transform duration-300 scale-95 border border-brand-rose/40 max-h-[90vh] overflow-y-auto" id="gift-modal-content">
       <button onclick="closeGiftModal()" class="absolute top-5 right-5 text-brand-charcoal/50 hover:text-brand-charcoal p-2 text-lg">
@@ -657,12 +657,19 @@
         </div>
       </div>
 
+      <!-- Área do QR Code e Pix Copia e Cola -->
       <div class="bg-brand-ivory p-5 rounded-2xl border border-brand-rose/50 text-center mb-6">
         <p class="text-xs font-semibold uppercase tracking-wider text-brand-charcoal mb-3">Pague com Pix Instantâneo</p>
-        <p class="text-[11px] text-brand-charcoal/70 mb-2">Chave Pix dos Noivos:</p>
+        
+        <!-- Imagem do QR Code gerada automaticamente -->
+        <div class="bg-white p-3 rounded-2xl border border-brand-rose/40 inline-block shadow-sm mb-3">
+          <img id="pix-qr-image" src="" alt="QR Code Pix" class="w-40 h-40 sm:w-44 sm:h-44 object-contain mx-auto">
+        </div>
+
+        <p class="text-[11px] text-brand-charcoal/70 mb-2" id="pix-code-label">Aponte a câmera do app do seu banco ou copie o código:</p>
         <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-brand-rose/60">
           <input type="text" id="pix-copy-key" readonly value="" class="text-xs text-brand-charcoal/80 bg-transparent w-full focus:outline-none font-mono">
-          <button onclick="copyPixCode()" class="px-3 py-1 bg-brand-rose/40 hover:bg-brand-rose text-brand-charcoal text-xs font-semibold rounded-lg transition whitespace-nowrap">
+          <button onclick="copyPixCode()" class="px-3 py-1.5 bg-brand-rose/40 hover:bg-brand-rose text-brand-charcoal text-xs font-semibold rounded-lg transition whitespace-nowrap">
             <i class="fa-regular fa-copy mr-1"></i> Copiar
           </button>
         </div>
@@ -883,7 +890,7 @@
         </div>
       </div>
 
-      <!-- ABA 5: GERENCIAR CATÁLOGO DE PRESENTES (SEM CATEGORIAS) -->
+      <!-- ABA 5: GERENCIAR CATÁLOGO DE PRESENTES (COM CÓDIGO PIX PARA QR CODE) -->
       <div id="admin-content-catalogo" class="space-y-6 hidden">
         <div class="bg-brand-cream/60 p-5 rounded-2xl border border-brand-rose/40">
           <div class="flex items-center justify-between mb-3">
@@ -917,6 +924,12 @@
               <input type="text" id="cat-gift-desc" required placeholder="Ex: Para brindarmos nossa nova vida juntos!" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white">
             </div>
 
+            <div>
+              <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Código Pix Copia e Cola (Gera QR Code automático)</label>
+              <textarea id="cat-gift-pix" rows="2" placeholder="Cole aqui o código Pix Copia e Cola gerado no app do seu banco (Ex: 00020126580014br.gov.bcb.pix...)" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white font-mono resize-none"></textarea>
+              <span class="block text-[11px] text-brand-charcoal/50 mt-1">Se deixar em branco, o site usará automaticamente a chave Pix padrão cadastrada nas Configurações.</span>
+            </div>
+
             <button type="submit" id="btn-save-catalogo-gift" class="px-5 py-2.5 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition">
               Salvar Presente na Lista
             </button>
@@ -937,6 +950,7 @@
                   <th class="p-3">Foto</th>
                   <th class="p-3">Título</th>
                   <th class="p-3">Valor</th>
+                  <th class="p-3">QR / Pix</th>
                   <th class="p-3 text-right">Ações</th>
                 </tr>
               </thead>
@@ -969,7 +983,7 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold uppercase text-brand-charcoal mb-1">Chave Pix dos Noivos</label>
+              <label class="block text-xs font-semibold uppercase text-brand-charcoal mb-1">Chave Pix Padrão dos Noivos</label>
               <input type="text" id="config-pix" required class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-sm">
             </div>
             <div>
@@ -1094,42 +1108,48 @@
         title: 'Jantar Romântico em Positano',
         amount: 350,
         image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&auto=format&fit=crop&q=80',
-        desc: 'Para brindar nosso amor à beira-mar com massa artesanal e vinho!'
+        desc: 'Para brindar nosso amor à beira-mar com massa artesanal e vinho!',
+        pixCode: ''
       },
       {
         id: '2',
         title: 'Passeio de Barco pela Ilha de Capri',
         amount: 480,
         image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&auto=format&fit=crop&q=80',
-        desc: 'Mergulho nas águas cristalinas para momentos inesquecíveis.'
+        desc: 'Mergulho nas águas cristalinas para momentos inesquecíveis.',
+        pixCode: ''
       },
       {
         id: '3',
         title: 'Café da Manhã na Cama (1 Mês)',
         amount: 120,
         image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&auto=format&fit=crop&q=80',
-        desc: 'Para garantir quem vai levantar aos domingos para fazer o café e levar croissants quentinhos.'
+        desc: 'Para garantir quem vai levantar aos domingos para fazer o café e levar croissants quentinhos.',
+        pixCode: ''
       },
       {
         id: '4',
         title: 'AirFryer dos Sonhos',
         amount: 280,
         image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=600&auto=format&fit=crop&q=80',
-        desc: 'O eletrodoméstico que todo casal precisa para o dia a dia.'
+        desc: 'O eletrodoméstico que todo casal precisa para o dia a dia.',
+        pixCode: ''
       },
       {
         id: '5',
         title: 'Gelatos Ilimitados em Roma',
         amount: 95,
         image: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=600&auto=format&fit=crop&q=80',
-        desc: 'Pelo menos dois gelatos por dia durante o passeio.'
+        desc: 'Pelo menos dois gelatos por dia durante o passeio.',
+        pixCode: ''
       },
       {
         id: '6',
         title: 'Paciência Infinita para o Noivo',
         amount: 150,
         image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80',
-        desc: 'Contribuição bem-humorada para momentos de paz e harmonia.'
+        desc: 'Contribuição bem-humorada para momentos de paz e harmonia.',
+        pixCode: ''
       }
     ];
 
@@ -1139,7 +1159,7 @@
     let giftsList = [];
     let messagesList = [];
     let catalogGifts = [];
-    let giftViewMode = 'grid'; // 'grid' (lado a lado) ou 'list' (lista horizontal)
+    let giftViewMode = 'grid';
 
     let isFirebaseReady = false;
     let db = null;
@@ -1301,9 +1321,6 @@
       document.getElementById('footer-couple-names').innerText = names;
       document.getElementById('hero-display-date').innerText = `${new Date(appConfig.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })} • ${appConfig.venue}`;
       document.getElementById('footer-date-venue').innerText = `${new Date(appConfig.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })} • ${appConfig.venue}`;
-
-      const pixInput = document.getElementById('pix-copy-key');
-      if (pixInput) pixInput.value = appConfig.pixKey;
     }
 
     function updateDashboardAndStats() {
@@ -1633,7 +1650,7 @@
     }
 
     /* =========================================================
-       6. VITRINE MODAL: LISTA DE PRESENTES (GRADE LADO A LADO & LISTA)
+       6. VITRINE MODAL: LISTA DE PRESENTES & QR CODE PIX
        ========================================================= */
     window.openGiftsCatalogModal = function() {
       window.renderGiftsGrid();
@@ -1695,7 +1712,6 @@
       }
 
       if (giftViewMode === 'grid') {
-        // Modo Grade Lado a Lado (2 colunas no celular como Mercado Livre, 3-4 no PC)
         grid.className = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5";
 
         items.forEach(gift => {
@@ -1723,7 +1739,6 @@
           grid.appendChild(card);
         });
       } else {
-        // Modo Lista Horizontal (estilo lista do Mercado Livre)
         grid.className = "grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4";
 
         items.forEach(gift => {
@@ -1763,6 +1778,20 @@
       document.getElementById('modal-gift-desc').innerText = gift.desc;
       document.getElementById('modal-gift-amount').value = gift.amount;
 
+      // Define o código Pix específico do presente ou usa a chave Pix padrão
+      const activePixPayload = (gift.pixCode && gift.pixCode.trim() !== '') ? gift.pixCode.trim() : appConfig.pixKey;
+      const pixInput = document.getElementById('pix-copy-key');
+      const pixLabel = document.getElementById('pix-code-label');
+      const qrImg = document.getElementById('pix-qr-image');
+
+      pixInput.value = activePixPayload;
+      pixLabel.innerText = (gift.pixCode && gift.pixCode.trim() !== '') 
+        ? "Escaneie o QR Code no app do banco ou copie o código Pix abaixo:" 
+        : "Escaneie o QR Code ou copie a chave Pix dos noivos:";
+
+      // Gera o QR Code instantaneamente com as cores do site
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=2D2926&bgcolor=FFFFFF&margin=6&data=${encodeURIComponent(activePixPayload)}`;
+
       const modal = document.getElementById('gift-modal');
       modal.classList.remove('hidden');
       setTimeout(() => {
@@ -1782,7 +1811,7 @@
       const copyText = document.getElementById("pix-copy-key");
       copyText.select();
       navigator.clipboard.writeText(copyText.value);
-      showToast("Chave Pix copiada com sucesso!");
+      showToast("Código Pix copiado com sucesso!");
     };
 
     window.confirmGiftPayment = async function() {
@@ -2153,7 +2182,7 @@
       showToast("Cota removida.");
     };
 
-    // 5. Gerenciar Catálogo de Presentes (Sem Categorias)
+    // 5. Gerenciar Catálogo de Presentes (Com Código Pix para QR Code)
     window.handleSaveCatalogoGift = async function(event) {
       event.preventDefault();
       const id = document.getElementById('cat-gift-id').value;
@@ -2161,7 +2190,8 @@
         title: document.getElementById('cat-gift-title').value.trim(),
         amount: Number(document.getElementById('cat-gift-amount').value),
         image: document.getElementById('cat-gift-image').value.trim(),
-        desc: document.getElementById('cat-gift-desc').value.trim()
+        desc: document.getElementById('cat-gift-desc').value.trim(),
+        pixCode: document.getElementById('cat-gift-pix').value.trim()
       };
 
       try {
@@ -2193,6 +2223,7 @@
       document.getElementById('cat-gift-amount').value = gift.amount;
       document.getElementById('cat-gift-image').value = gift.image;
       document.getElementById('cat-gift-desc').value = gift.desc;
+      document.getElementById('cat-gift-pix').value = gift.pixCode || '';
 
       document.getElementById('catalogo-form-title').innerText = "Editando Presente";
       document.getElementById('btn-cancel-edit-gift').classList.remove('hidden');
@@ -2205,6 +2236,7 @@
       document.getElementById('cat-gift-amount').value = '';
       document.getElementById('cat-gift-image').value = '';
       document.getElementById('cat-gift-desc').value = '';
+      document.getElementById('cat-gift-pix').value = '';
       document.getElementById('catalogo-form-title').innerText = "Adicionar Novo Presente";
       document.getElementById('btn-cancel-edit-gift').classList.add('hidden');
     };
@@ -2236,11 +2268,12 @@
       tbody.innerHTML = '';
 
       if (catalogGifts.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-brand-charcoal/50">Nenhum presente cadastrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-brand-charcoal/50">Nenhum presente cadastrado.</td></tr>`;
         return;
       }
 
       catalogGifts.forEach(g => {
+        const hasCustomPix = g.pixCode && g.pixCode.trim() !== '';
         const tr = document.createElement('tr');
         tr.className = "hover:bg-brand-ivory/50 transition-colors";
         tr.innerHTML = `
@@ -2249,6 +2282,11 @@
           </td>
           <td class="p-3 font-semibold text-brand-charcoal">${g.title}</td>
           <td class="p-3 font-bold text-brand-charcoal">R$ ${Number(g.amount).toFixed(2)}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${hasCustomPix ? 'bg-emerald-100 text-emerald-800' : 'bg-brand-cream text-brand-charcoal/70'}">
+              ${hasCustomPix ? 'Código Próprio' : 'Chave Padrão'}
+            </span>
+          </td>
           <td class="p-3 text-right space-x-2">
             <button onclick="editCatalogoGift('${g.id}')" class="text-brand-charcoal hover:text-brand-terracotta p-1" title="Editar">
               <i class="fa-regular fa-pen-to-square"></i>
