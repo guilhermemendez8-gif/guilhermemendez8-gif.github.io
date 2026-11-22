@@ -1130,7 +1130,7 @@
     let rsvpList = [];
     let giftsList = [];
     let messagesList = [];
-    let catalogGifts = [...INITIAL_GIFTS];
+    let catalogGifts = [];
     let activeGiftCategory = 'todos';
 
     let isFirebaseReady = false;
@@ -1206,15 +1206,12 @@
       });
 
       onSnapshot(collection(db, "catalogo_presentes"), (snapshot) => {
-        if (!snapshot.empty) {
-          catalogGifts = [];
-          snapshot.forEach((docSnap) => {
-            catalogGifts.push({ id: docSnap.id, ...docSnap.data() });
-          });
-          catalogGifts.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
-        } else {
-          catalogGifts = [...INITIAL_GIFTS];
-        }
+        catalogGifts = [];
+        snapshot.forEach((docSnap) => {
+          catalogGifts.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        catalogGifts.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+        
         window.renderGiftsGrid(activeGiftCategory);
         renderAdminCatalogoTable();
       });
@@ -1639,6 +1636,11 @@
       grid.innerHTML = '';
 
       const filtered = category === 'todos' ? catalogGifts : catalogGifts.filter(g => g.category === category);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-12 text-xs text-brand-charcoal/60 bg-white rounded-3xl border border-brand-rose/40">Nenhum presente disponível nesta categoria no momento.</div>`;
+        return;
+      }
 
       filtered.forEach(gift => {
         const card = document.createElement('div');
@@ -2089,25 +2091,7 @@
 
       try {
         if (isFirebaseReady && db) {
-          const isUsingDefaults = catalogGifts.length > 0 && catalogGifts[0].id.length <= 2;
-
-          if (isUsingDefaults) {
-            for (const item of INITIAL_GIFTS) {
-              const { id: oldId, ...rest } = item;
-              const payload = (oldId === id) ? giftData : rest;
-              await addDoc(collection(db, "catalogo_presentes"), {
-                ...payload,
-                timestamp: serverTimestamp()
-              });
-            }
-            if (!id) {
-              await addDoc(collection(db, "catalogo_presentes"), {
-                ...giftData,
-                timestamp: serverTimestamp()
-              });
-            }
-            showToast(id ? "Presente atualizado no Firebase!" : "Presente adicionado à lista!");
-          } else if (id) {
+          if (id) {
             await updateDoc(doc(db, "catalogo_presentes", id), giftData);
             showToast("Presente atualizado com sucesso!");
           } else {
@@ -2121,7 +2105,7 @@
         resetCatalogoForm();
       } catch (e) {
         console.error("Erro detalhado do Firestore:", e);
-        showToast("Erro ao salvar no Firebase. Verifique as regras do Firestore.", "error");
+        showToast("Erro ao salvar no Firebase.", "error");
       }
     };
 
@@ -2154,16 +2138,7 @@
     window.deleteCatalogoGift = async function(id) {
       try {
         if (isFirebaseReady && db) {
-          if (id.length <= 2) {
-            for (const item of catalogGifts) {
-              if (item.id !== id) {
-                const { id: oldId, ...rest } = item;
-                await addDoc(collection(db, "catalogo_presentes"), { ...rest, timestamp: serverTimestamp() });
-              }
-            }
-          } else {
-            await deleteDoc(doc(db, "catalogo_presentes", id));
-          }
+          await deleteDoc(doc(db, "catalogo_presentes", id));
         }
         showToast("Presente removido da lista.");
       } catch (e) {
