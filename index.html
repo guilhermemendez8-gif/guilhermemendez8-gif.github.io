@@ -118,7 +118,7 @@
         <span class="text-[10px] uppercase tracking-[0.3em] text-brand-charcoal/70 font-semibold">Convite Especial</span>
       </div>
 
-     <!-- Selo de Cera Central (Monograma R & G) -->
+      <!-- Selo de Cera Central (Monograma R & G centralizado) -->
       <div id="wax-seal" class="relative z-30 mt-24 mx-auto w-20 h-20 rounded-full bg-brand-terracotta border-4 border-[#b57361] shadow-lg flex items-center justify-center text-white transition-all duration-500">
         <div class="w-16 h-16 rounded-full border border-white/40 flex items-center justify-center">
           <span class="font-cormorant text-xl font-bold tracking-normal whitespace-nowrap leading-none">R <span class="italic font-normal text-base">&</span> G</span>
@@ -383,38 +383,14 @@
         </div>
       </div>
 
-      <!-- Dress Code -->
+      <!-- Dress Code Simplificado -->
       <div class="bg-white rounded-3xl p-8 border border-brand-rose/40 shadow-sm mb-16">
-        <div class="max-w-2xl mx-auto text-center">
-          <span class="text-xs font-bold tracking-widest uppercase text-brand-terracotta">Como se vestir</span>
-          <h3 class="font-cormorant text-3xl font-semibold text-brand-charcoal mt-1 mb-3">Traje: Passeio Completo / Festivo Elegante</h3>
-          <p class="text-sm text-brand-charcoal/80 mb-6">
-            Sugerimos ternos elegantes e vestidos midi ou longos. Como teremos áreas ao ar livre em gramado plano, sugerimos sapatos com salto confortável (bloco ou anabela) para dançar sem preocupações!
+        <div class="max-w-xl mx-auto text-center">
+          <span class="text-xs font-bold tracking-widest uppercase text-brand-terracotta">Observação Importante</span>
+          <h3 class="font-cormorant text-3xl font-semibold text-brand-charcoal mt-1 mb-3">Trajes</h3>
+          <p class="text-sm sm:text-base text-brand-charcoal/85 font-medium">
+            Evitar tons claros do tipo bege, off-white e branco.
           </p>
-
-          <p class="text-xs uppercase tracking-wider font-semibold text-brand-charcoal/70 mb-3">Paleta de Inspiração (Por favor, evite branco e tons off-white):</p>
-          <div class="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
-            <div class="flex flex-col items-center">
-              <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #C88572;"></div>
-              <span class="text-[10px] mt-1 text-brand-charcoal/60 font-medium">Terracota</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #E8D5CE;"></div>
-              <span class="text-[10px] mt-1 text-brand-charcoal/60 font-medium">Rose Suave</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #8F9E8B;"></div>
-              <span class="text-[10px] mt-1 text-brand-charcoal/60 font-medium">Verde Sálvia</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #D4AF37;"></div>
-              <span class="text-[10px] mt-1 text-brand-charcoal/60 font-medium">Champagne</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="w-10 h-10 rounded-full border border-black/10 shadow-sm" style="background-color: #5A6B56;"></div>
-              <span class="text-[10px] mt-1 text-brand-charcoal/60 font-medium">Oliva Nobre</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -499,7 +475,7 @@
       </div>
     </section>
 
-    <!-- SEÇÃO 5: LISTA DE PRESENTES VIRTUAIS & COTAS PIX -->
+    <!-- SEÇÃO 5: LISTA DE PRESENTES VIRTUAIS & COTAS PIX (EDITÁVEL PELOS NOIVOS) -->
     <section id="presentes" class="py-20 bg-brand-cream/60 border-b border-brand-rose/30">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center mb-12">
@@ -709,7 +685,7 @@
           </div>
           <div>
             <h3 class="font-cormorant text-3xl font-bold text-brand-charcoal leading-none">Painel dos Noivos</h3>
-            <p class="text-xs text-brand-charcoal/60 mt-1">Gestão de convites, lista autorizada e moderação do mural</p>
+            <p class="text-xs text-brand-charcoal/60 mt-1">Gestão de convites, lista de presentes e moderação do mural</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -763,8 +739,11 @@
         <button onclick="switchAdminTab('gifts')" id="admin-tab-gifts" class="pb-3 text-xs uppercase tracking-wider font-semibold border-b-2 border-transparent text-brand-charcoal/60 hover:text-brand-charcoal whitespace-nowrap">
           4. Extrato de Cotas Pix
         </button>
+        <button onclick="switchAdminTab('catalogo')" id="admin-tab-catalogo" class="pb-3 text-xs uppercase tracking-wider font-semibold border-b-2 border-transparent text-brand-charcoal/60 hover:text-brand-charcoal whitespace-nowrap">
+          5. Editar Lista de Presentes
+        </button>
         <button onclick="switchAdminTab('config')" id="admin-tab-config" class="pb-3 text-xs uppercase tracking-wider font-semibold border-b-2 border-transparent text-brand-charcoal/60 hover:text-brand-charcoal whitespace-nowrap">
-          5. Configurações
+          6. Configurações
         </button>
       </div>
 
@@ -878,7 +857,82 @@
         </div>
       </div>
 
-      <!-- ABA 5: CONFIGURAÇÕES -->
+      <!-- ABA 5: GERENCIAR CATÁLOGO DE PRESENTES (POR LINK DE IMAGEM) -->
+      <div id="admin-content-catalogo" class="space-y-6 hidden">
+        <div class="bg-brand-cream/60 p-5 rounded-2xl border border-brand-rose/40">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-sm font-semibold uppercase tracking-wider text-brand-charcoal" id="catalogo-form-title">Adicionar Novo Presente</h4>
+            <button type="button" id="btn-cancel-edit-gift" onclick="resetCatalogoForm()" class="hidden text-xs text-brand-terracotta underline font-semibold">
+              Cancelar Edição
+            </button>
+          </div>
+          
+          <form onsubmit="handleSaveCatalogoGift(event)" class="space-y-4">
+            <input type="hidden" id="cat-gift-id">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="sm:col-span-2">
+                <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Nome do Presente / Cota *</label>
+                <input type="text" id="cat-gift-title" required placeholder="Ex: Jantar Romântico na Lua de Mel" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white">
+              </div>
+              <div>
+                <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Valor (R$) *</label>
+                <input type="number" id="cat-gift-amount" required min="10" step="5" placeholder="250" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Categoria *</label>
+                <select id="cat-gift-category" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white">
+                  <option value="luademel">Lua de Mel</option>
+                  <option value="experiencias">Experiências</option>
+                  <option value="divertidos">Divertidos</option>
+                  <option value="casa">Novo Lar</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Link da Imagem (URL externa) *</label>
+                <input type="url" id="cat-gift-image" required placeholder="https://exemplo.com/foto.jpg" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white font-mono">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs uppercase font-medium text-brand-charcoal/70 mb-1">Descrição Carinhosa *</label>
+              <input type="text" id="cat-gift-desc" required placeholder="Ex: Para brindarmos nossa nova vida juntos!" class="w-full px-3 py-2 rounded-xl border border-brand-rose/60 text-xs bg-white">
+            </div>
+
+            <button type="submit" id="btn-save-catalogo-gift" class="px-5 py-2.5 bg-brand-terracotta hover:bg-[#b57361] text-white rounded-xl text-xs font-semibold uppercase tracking-wider transition">
+              Salvar Presente na Lista
+            </button>
+          </form>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs uppercase tracking-wider font-semibold text-brand-charcoal">Itens Ativos na Lista de Presentes</span>
+            <button type="button" onclick="seedDefaultGiftsToFirebase()" class="text-[11px] text-brand-terracotta hover:underline font-semibold">
+              + Restaurar Sugestões Iniciais
+            </button>
+          </div>
+          <div class="overflow-x-auto border border-brand-rose/40 rounded-2xl">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-brand-ivory border-b border-brand-rose/40 text-brand-charcoal uppercase tracking-wider">
+                <tr>
+                  <th class="p-3">Foto</th>
+                  <th class="p-3">Título</th>
+                  <th class="p-3">Categoria</th>
+                  <th class="p-3">Valor</th>
+                  <th class="p-3 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="admin-catalogo-table-body" class="divide-y divide-brand-rose/20"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABA 6: CONFIGURAÇÕES -->
       <div id="admin-content-config" class="space-y-4 hidden">
         <form onsubmit="handleConfigUpdate(event)" class="space-y-4 max-w-xl">
           <div class="grid grid-cols-2 gap-4">
@@ -953,14 +1007,13 @@
         errorMsg.classList.add('hidden');
         sessionStorage.setItem('rg_envelope_unlocked', 'true');
         
-        // Animação de abertura do selo e da aba do envelope
         seal.classList.add('scale-0', 'opacity-0');
         wrapper.classList.add('envelope-open');
         revealMainSite(false);
       } else {
         errorMsg.classList.remove('hidden');
         wrapper.classList.remove('animate-shake');
-        void wrapper.offsetWidth; // força reflow para repetir animação
+        void wrapper.offsetWidth;
         wrapper.classList.add('animate-shake');
         input.value = '';
         input.focus();
@@ -979,7 +1032,6 @@
       }
     }
 
-    // Verifica se já foi desbloqueado na sessão atual
     if (sessionStorage.getItem('rg_envelope_unlocked') === 'true') {
       revealMainSite(true);
     }
@@ -1078,6 +1130,8 @@
     let rsvpList = [];
     let giftsList = [];
     let messagesList = [];
+    let catalogGifts = [...INITIAL_GIFTS];
+    let activeGiftCategory = 'todos';
 
     let isFirebaseReady = false;
     let db = null;
@@ -1151,6 +1205,20 @@
         updateDashboardAndStats();
       });
 
+      onSnapshot(collection(db, "catalogo_presentes"), (snapshot) => {
+        if (!snapshot.empty) {
+          catalogGifts = [];
+          snapshot.forEach((docSnap) => {
+            catalogGifts.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          catalogGifts.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+        } else {
+          catalogGifts = [...INITIAL_GIFTS];
+        }
+        window.renderGiftsGrid(activeGiftCategory);
+        renderAdminCatalogoTable();
+      });
+
       onSnapshot(collection(db, "mensagens"), (snapshot) => {
         messagesList = [];
         snapshot.forEach((docSnap) => {
@@ -1178,6 +1246,7 @@
       messagesList = JSON.parse(localStorage.getItem('amorei_messages_feed')) || [];
       updateDashboardAndStats();
       renderMuralFeed();
+      renderAdminCatalogoTable();
     }
 
     function saveLocalState() {
@@ -1252,15 +1321,6 @@
       document.getElementById('admin-stat-gifts-total').innerText = `R$ ${totalRaised.toLocaleString('pt-BR')}`;
       document.getElementById('admin-stat-gifts-count').innerText = `${giftsList.length} cotas`;
 
-      const goalBar = document.getElementById('goal-progress-bar');
-      if (goalBar) {
-        const goal = Number(appConfig.goalTotal) || 20000;
-        const percent = Math.min(100, Math.round((totalRaised / goal) * 100));
-        document.getElementById('goal-collected-display').innerText = `R$ ${totalRaised.toLocaleString('pt-BR')}`;
-        goalBar.style.width = `${percent}%`;
-        document.getElementById('goal-percent-display').innerText = `${percent}% alcançado`;
-      }
-
       const pendentes = messagesList.filter(m => m.status === 'pendente');
       document.getElementById('admin-stat-pending-media').innerText = pendentes.length;
       document.getElementById('admin-badge-moderacao').innerText = pendentes.length;
@@ -1269,6 +1329,7 @@
       renderAdminGuestsTable();
       renderAdminModeracaoTable();
       renderAdminGiftsTable();
+      renderAdminCatalogoTable();
     }
 
     /* =========================================================
@@ -1570,13 +1631,14 @@
     }
 
     /* =========================================================
-       6. PRESENTES / PIX
+       6. PRESENTES / PIX (DINÂMICO DO CATÁLOGO)
        ========================================================= */
     window.renderGiftsGrid = function(category = 'todos') {
+      activeGiftCategory = category;
       const grid = document.getElementById('gifts-grid');
       grid.innerHTML = '';
 
-      const filtered = category === 'todos' ? INITIAL_GIFTS : INITIAL_GIFTS.filter(g => g.category === category);
+      const filtered = category === 'todos' ? catalogGifts : catalogGifts.filter(g => g.category === category);
 
       filtered.forEach(gift => {
         const card = document.createElement('div');
@@ -1590,7 +1652,7 @@
               </div>
             </div>
             <div class="p-6">
-              <span class="text-[10px] uppercase font-bold tracking-widest text-brand-terracotta">${gift.category.toUpperCase()}</span>
+              <span class="text-[10px] uppercase font-bold tracking-widest text-brand-terracotta">${(gift.category || '').toUpperCase()}</span>
               <h4 class="font-cormorant text-2xl font-bold text-brand-charcoal mt-1 mb-2">${gift.title}</h4>
               <p class="text-xs text-brand-charcoal/70 leading-relaxed">${gift.desc}</p>
             </div>
@@ -1615,7 +1677,7 @@
 
     let currentSelectedGift = null;
     window.openGiftModal = function(giftId) {
-      const gift = INITIAL_GIFTS.find(g => g.id === giftId);
+      const gift = catalogGifts.find(g => g.id === giftId);
       if (!gift) return;
       currentSelectedGift = gift;
 
@@ -1755,7 +1817,7 @@
     };
 
     window.switchAdminTab = function(tab) {
-      const tabs = ['autorizados', 'rsvp', 'moderacao', 'gifts', 'config'];
+      const tabs = ['autorizados', 'rsvp', 'moderacao', 'gifts', 'catalogo', 'config'];
       tabs.forEach(t => {
         const btn = document.getElementById(`admin-tab-${t}`);
         const content = document.getElementById(`admin-content-${t}`);
@@ -1769,6 +1831,7 @@
       });
     };
 
+    // 1. Cadastrar Família
     window.handleCadastrarFamilia = async function(event) {
       event.preventDefault();
       const phone = sanitizePhone(document.getElementById('cad-phone').value);
@@ -1853,6 +1916,7 @@
       showToast("Convite removido.");
     };
 
+    // 2. Presenças Confirmadas
     window.renderAdminGuestsTable = function() {
       const tbody = document.getElementById('admin-guests-table-body');
       tbody.innerHTML = '';
@@ -1895,6 +1959,7 @@
       showToast("Registro excluído.");
     };
 
+    // 3. Moderação do Mural
     window.renderAdminModeracaoTable = function() {
       const tbody = document.getElementById('admin-moderacao-table-body');
       tbody.innerHTML = '';
@@ -1970,6 +2035,7 @@
       }
     };
 
+    // 4. Extrato de Presentes
     window.renderAdminGiftsTable = function() {
       const tbody = document.getElementById('admin-gifts-table-body');
       tbody.innerHTML = '';
@@ -2009,6 +2075,146 @@
       showToast("Cota removida.");
     };
 
+    // 5. Gerenciar Catálogo de Presentes (Por Link Externo)
+    window.handleSaveCatalogoGift = async function(event) {
+      event.preventDefault();
+      const id = document.getElementById('cat-gift-id').value;
+      const giftData = {
+        title: document.getElementById('cat-gift-title').value.trim(),
+        amount: Number(document.getElementById('cat-gift-amount').value),
+        category: document.getElementById('cat-gift-category').value,
+        image: document.getElementById('cat-gift-image').value.trim(),
+        desc: document.getElementById('cat-gift-desc').value.trim()
+      };
+
+      try {
+        if (isFirebaseReady && db) {
+          const isUsingDefaults = catalogGifts.length > 0 && catalogGifts[0].id.length <= 2;
+
+          if (isUsingDefaults) {
+            for (const item of INITIAL_GIFTS) {
+              const { id: oldId, ...rest } = item;
+              const payload = (oldId === id) ? giftData : rest;
+              await addDoc(collection(db, "catalogo_presentes"), {
+                ...payload,
+                timestamp: serverTimestamp()
+              });
+            }
+            if (!id) {
+              await addDoc(collection(db, "catalogo_presentes"), {
+                ...giftData,
+                timestamp: serverTimestamp()
+              });
+            }
+            showToast(id ? "Presente atualizado no Firebase!" : "Presente adicionado à lista!");
+          } else if (id) {
+            await updateDoc(doc(db, "catalogo_presentes", id), giftData);
+            showToast("Presente atualizado com sucesso!");
+          } else {
+            await addDoc(collection(db, "catalogo_presentes"), {
+              ...giftData,
+              timestamp: serverTimestamp()
+            });
+            showToast("Novo presente adicionado à lista!");
+          }
+        }
+        resetCatalogoForm();
+      } catch (e) {
+        console.error("Erro detalhado do Firestore:", e);
+        showToast("Erro ao salvar no Firebase. Verifique as regras do Firestore.", "error");
+      }
+    };
+
+    window.editCatalogoGift = function(id) {
+      const gift = catalogGifts.find(g => g.id === id);
+      if (!gift) return;
+
+      document.getElementById('cat-gift-id').value = gift.id;
+      document.getElementById('cat-gift-title').value = gift.title;
+      document.getElementById('cat-gift-amount').value = gift.amount;
+      document.getElementById('cat-gift-category').value = gift.category;
+      document.getElementById('cat-gift-image').value = gift.image;
+      document.getElementById('cat-gift-desc').value = gift.desc;
+
+      document.getElementById('catalogo-form-title').innerText = "Editando Presente";
+      document.getElementById('btn-cancel-edit-gift').classList.remove('hidden');
+      document.getElementById('cat-gift-title').focus();
+    };
+
+    window.resetCatalogoForm = function() {
+      document.getElementById('cat-gift-id').value = '';
+      document.getElementById('cat-gift-title').value = '';
+      document.getElementById('cat-gift-amount').value = '';
+      document.getElementById('cat-gift-image').value = '';
+      document.getElementById('cat-gift-desc').value = '';
+      document.getElementById('catalogo-form-title').innerText = "Adicionar Novo Presente";
+      document.getElementById('btn-cancel-edit-gift').classList.add('hidden');
+    };
+
+    window.deleteCatalogoGift = async function(id) {
+      try {
+        if (isFirebaseReady && db) {
+          if (id.length <= 2) {
+            for (const item of catalogGifts) {
+              if (item.id !== id) {
+                const { id: oldId, ...rest } = item;
+                await addDoc(collection(db, "catalogo_presentes"), { ...rest, timestamp: serverTimestamp() });
+              }
+            }
+          } else {
+            await deleteDoc(doc(db, "catalogo_presentes", id));
+          }
+        }
+        showToast("Presente removido da lista.");
+      } catch (e) {
+        console.error(e);
+        showToast("Erro ao excluir presente.", "error");
+      }
+    };
+
+    window.seedDefaultGiftsToFirebase = async function() {
+      if (!isFirebaseReady || !db) return;
+      for (const item of INITIAL_GIFTS) {
+        const { id, ...rest } = item;
+        await addDoc(collection(db, "catalogo_presentes"), { ...rest, timestamp: serverTimestamp() });
+      }
+      showToast("Sugestões iniciais adicionadas ao banco!");
+    };
+
+    window.renderAdminCatalogoTable = function() {
+      const tbody = document.getElementById('admin-catalogo-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (catalogGifts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-brand-charcoal/50">Nenhum presente cadastrado.</td></tr>`;
+        return;
+      }
+
+      catalogGifts.forEach(g => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-brand-ivory/50 transition-colors";
+        tr.innerHTML = `
+          <td class="p-3">
+            <img src="${g.image}" alt="${g.title}" class="w-10 h-10 rounded-lg object-cover border border-brand-rose/40" onerror="this.src='https://placehold.co/100x100/E8D5CE/2D2926?text=Foto'">
+          </td>
+          <td class="p-3 font-semibold text-brand-charcoal">${g.title}</td>
+          <td class="p-3 uppercase text-[10px] font-bold text-brand-terracotta">${g.category}</td>
+          <td class="p-3 font-bold text-brand-charcoal">R$ ${Number(g.amount).toFixed(2)}</td>
+          <td class="p-3 text-right space-x-2">
+            <button onclick="editCatalogoGift('${g.id}')" class="text-brand-charcoal hover:text-brand-terracotta p-1" title="Editar">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button onclick="deleteCatalogoGift('${g.id}')" class="text-rose-600 hover:text-rose-800 p-1" title="Excluir">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    };
+
+    // 6. Configurações Gerais
     window.handleConfigUpdate = async function(event) {
       event.preventDefault();
       const saveBtn = document.getElementById('btn-save-config');
